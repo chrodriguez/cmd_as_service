@@ -44,7 +44,6 @@ private
     Thread.new do
       loop do
         settings.logger.info "Waiting for command execution..."
-        settings.queue.pop
         settings.cache[:token] = nil #invalidates this token
         settings.logger.info "Start command execution"
         cmd = "#{settings.cmd} #{settings.cache[:args]}"
@@ -53,6 +52,7 @@ private
         time = Benchmark.measure do 
           stdout_str, stderr_str, status = Open3.capture3(ENV,cmd)
         end
+        settings.queue.pop
         subject = (status.success? ? "SUCCESS" : "ERROR") +  " executing #{cmd}"
         Mail.deliver do
           from     settings.mail_from
