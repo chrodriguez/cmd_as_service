@@ -137,7 +137,7 @@ configure do
       user_name:      ENV['MAIL_USER'],
       password:       ENV['MAIL_PASS'],
       authentication: ENV['MAIL_AUTH'],   # :plain, :login, :cram_md5, the default is no auth
-      enable_starttls_auto: !ENV['MAIL_STARTTLS'].empty?
+      enable_starttls_auto: !(ENV['MAIL_STARTTLS'].nil? || ENV['MAIL_STARTTLS'].empty?)
     }
   end
 end
