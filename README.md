@@ -64,7 +64,7 @@ with command status and output
 MAIL_HOST=smtp.example.net MAIL_TO=user@example.net RACK_ENV=production ruby serve.rb
 ```
 
-## Start server specifying other port
+### Start server specifying other port
 
 ```
 RACK_ENV=production ruby server.rb -p 5000
