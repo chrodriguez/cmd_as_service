@@ -118,7 +118,7 @@ Output
 
 configure do
   set :logger, Logger.new(STDOUT)
-  set :cmd, ENV['CMD'] || 'echo "Hello World"'
+  set :cmd, ENV['CMD_AS'] || 'echo "Hello World"'
   set :mail_to, ENV['MAIL_TO'] || 'user@example.net'
   set :mail_from , ENV['MAIL_FROM'] || 'cmd_as_service@example.net'
   set :mail_subject, ENV['MAIL_SUBJECT'] || 'Command as a service'

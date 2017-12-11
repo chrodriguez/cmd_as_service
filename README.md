@@ -15,7 +15,7 @@ an HTTP service.
 This service is entirely configured based on environment variables. The complete
 list of variables is:
 
-* **CMD:** command to execute. Argument to this command can be set as POST
+* **CMD_AS:** command to execute. Argument to this command can be set as POST
   argument
 * **CACHE_TIMEOUT:** time a generated token will be valid. Default: 300
   seconds.
