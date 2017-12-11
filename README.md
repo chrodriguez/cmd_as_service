@@ -17,18 +17,18 @@ list of variables is:
 
 * **CMD:** command to execute. Argument to this command can be set as POST
   argument
-* **CACHE__TIMEOUT:** time a generated token will be valid. Default: 300
+* **CACHE_TIMEOUT:** time a generated token will be valid. Default: 300
   seconds.
-* **MAIL__TO:** recipient mail address to send validation and notification
+* **MAIL_TO:** recipient mail address to send validation and notification
   emails.
-* **MAIL__FROM:** sender mail address to send mails from.
-* **MAIL__SUBJECT:** mail subject text to send for initial validation emails.
+* **MAIL_FROM:** sender mail address to send mails from.
+* **MAIL_SUBJECT:** mail subject text to send for initial validation emails.
   Defualt: Command as a service
-* **MAIL__HOST:** mail server to use as SMTP server
-* **MAIL__PORT:** mail server port. Default: 25
-* **MAIL__USER:** mail server authentication user if needed
-* **MAIL__PASS:** mail server authentication password
-* **MAIL__AUTH:** mail server authentication method. Valid values are: plain, login,
+* **MAIL_HOST:** mail server to use as SMTP server
+* **MAIL_PORT:** mail server port. Default: 25
+* **MAIL_USER:** mail server authentication user if needed
+* **MAIL_PASS:** mail server authentication password
+* **MAIL_AUTH:** mail server authentication method. Valid values are: plain, login,
   cram_md5. If empty means no authentication.
 
 ## HTTP Services
