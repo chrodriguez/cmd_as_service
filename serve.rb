@@ -39,8 +39,8 @@ private
   end
 
   def self.initialize_command_thread(settings)
+    settings.logger.debug "Loaded with environments:\n" + ENV.map{|k,v| "  #{k}=#{v}"}.join("\n")
     Thread.abort_on_exception = true
-    app = self
     Thread.new do
       loop do
         settings.logger.info "Waiting for command execution..."
@@ -51,7 +51,7 @@ private
         settings.logger.debug "Will execute #{cmd}"
         stdout_str, stderr_str, status = nil
         time = Benchmark.measure do 
-          stdout_str, stderr_str, status = Open3.capture3(cmd)
+          stdout_str, stderr_str, status = Open3.capture3(ENV,cmd)
         end
         subject = (status.success? ? "SUCCESS" : "ERROR") +  " executing #{cmd}"
         Mail.deliver do

@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     backports (3.10.3)
+    json (2.1.0)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     mini_mime (1.0.0)
@@ -29,6 +30,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json (~> 2.1.0)
   mail (~> 2.7.0)
   puma (~> 3.11.0)
   sinatra (~> 2.0.0)
