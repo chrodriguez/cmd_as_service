@@ -80,7 +80,8 @@ Output
 
   def process_cmd_request
     if settings.cache[:ts].nil? ||
-       Time.now - settings.cache[:ts] > settings.cache_timeout ||= \
+       settings.cache[:token].nil? ||
+       Time.now - settings.cache[:ts] > settings.cache_timeout ||
        %w(true 1).include?(params[:force])
       settings.cache[:ts] = Time.now
       settings.cache[:token] = generate_token
@@ -136,6 +137,7 @@ configure do
       user_name:      ENV['MAIL_USER'],
       password:       ENV['MAIL_PASS'],
       authentication: ENV['MAIL_AUTH'],   # :plain, :login, :cram_md5, the default is no auth
+      enable_starttls_auto: !ENV['MAIL_STARTTLS'].empty?
     }
   end
 end

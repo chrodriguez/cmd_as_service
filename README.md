@@ -30,6 +30,7 @@ list of variables is:
 * **MAIL_PASS:** mail server authentication password
 * **MAIL_AUTH:** mail server authentication method. Valid values are: plain, login,
   cram_md5. If empty means no authentication.
+* **MAIL_STARTTLS:** mail server uses starttls?
 
 ## HTTP Services
 
