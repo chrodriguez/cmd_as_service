@@ -80,4 +80,51 @@ curl -d 'force=1&args=Hello world' http://localhost:4567
 ```
 
 
+# Docker
 
+You can play with this application using a provided image that can be used as
+template o used as base image for your own docker images. Dockerfile is provided
+in `docker/` directory.
+
+## Run a sample echo container
+
+The following exampl uses gmail as server
+
+```
+docker run --rm -it \
+  -e CMD_AS=/bin/echo \
+  -e MAIL_TO=user@gmail.com \
+  -e MAIL_FROM=user@gmail.com \
+  -e MAIL_HOST=smtp.gmail.com \
+  -e MAIL_PORT=587 \
+  -e MAIL_USER=user@gmail.com \
+  -e MAIL_PASS=**** \
+  -e MAIL_AUTH=plain \
+  -e MAIL_STARTTLS=true \
+  -p 9292:9292 chrodriguez/cmd_as_service
+```
+
+Then use curl to play with this demo:
+
+```
+curl -d 'args=Hello world' localhost:9292
+```
+
+An email will be sent with instructions to follow. Finally, after command
+execution an email with subject **SUCCESS...** will be sent with a body similar
+to:
+
+```
+Command runs in 0.006102632003603503 seconds
+
+-------------------------------------------------------------------------------
+
+Errors
+======
+
+
+
+Output
+======
+Hello world
+```
