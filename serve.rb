@@ -19,7 +19,7 @@ end
 get '/:token' do
   return 403 unless verify_token(params[:token])
   # Unlock thread for execution
-  settings.queue << 1
+  settings.queue << 1 << 1
   logger.debug 'Thread unlocked for command execution'
 end
 
@@ -44,6 +44,7 @@ private
     Thread.new do
       loop do
         settings.logger.info "Waiting for command execution..."
+        settings.queue.pop
         settings.cache[:token] = nil #invalidates this token
         settings.logger.info "Start command execution"
         cmd = "#{settings.cmd} #{settings.cache[:args]}"
@@ -52,7 +53,7 @@ private
         time = Benchmark.measure do 
           stdout_str, stderr_str, status = Open3.capture3(ENV,cmd)
         end
-        settings.queue.pop
+        settings.queue.pop # release lock (two queue elements)
         subject = (status.success? ? "SUCCESS" : "ERROR") +  " executing #{cmd}"
         Mail.deliver do
           from     settings.mail_from
@@ -125,7 +126,7 @@ configure do
   set :mail_subject, ENV['MAIL_SUBJECT'] || 'Command as a service'
   set :cache, Hash.new
   set :cache_timeout, (ENV['CACHE_TIMEOUT'] || '300').to_i # Number of seconds till cache is valid
-  set :queue, SizedQueue.new(1)
+  set :queue, SizedQueue.new(2)
   enable :logging
 
   initialize_command_thread settings 

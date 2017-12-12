@@ -68,7 +68,7 @@ MAIL_HOST=smtp.example.net MAIL_TO=user@example.net RACK_ENV=production ruby ser
 ### Start server specifying other port
 
 ```
-RACK_ENV=production ruby server.rb -p 5000
+RACK_ENV=production puma -w 1 -t 2:4 -p 4567
 ```
 
 ## Sample client usage
