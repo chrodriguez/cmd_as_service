@@ -88,7 +88,7 @@ in `docker/` directory.
 
 ## Run a sample echo container
 
-The following exampl uses gmail as server
+The following example uses gmail as server
 
 ```
 docker run --rm -it \
