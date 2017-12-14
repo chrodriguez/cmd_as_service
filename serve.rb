@@ -17,13 +17,18 @@ end
 
 # Validate token for command execution
 get '/:token' do
-  return 403 unless verify_token(params[:token])
-  # Unlock thread for execution
-  settings.queue << 1 << 1
-  logger.debug 'Thread unlocked for command execution'
+  if verify_token(params[:token])
+    # Unlock thread for execution
+    settings.queue << 1 << 1
+    logger.debug 'Thread unlocked for command execution'
+    "Thanks for confirming token #{params[:token]}. The command has been started. You'll receive an email once it's finished."
+  else
+    status 403
+    'This token has either expired, already been confirmed or it never existed.'
+  end
 end
 
-private 
+private
 
   # Validates new request can be initiated. This means that:
   #   * There is no command executing just now
@@ -59,19 +64,14 @@ private
           from     settings.mail_from
           to       settings.mail_to
           subject  subject
+          add_file filename: 'stderr.txt', content: stderr_str if stderr_str && stderr_str !~ /\A\s*\z/
+          add_file filename: 'stdout.txt', content: stdout_str if stdout_str && stdout_str !~ /\A\s*\z/
           body  <<-BODY
-Command runs in #{time.real} seconds
-
+Command finished in #{format('%.2f', time.real)} seconds
 -------------------------------------------------------------------------------
 
-Errors
-======
-#{stderr_str}
-
-
-Output
-======
-#{stdout_str}
+Please refer to the attached file(s) for the standard and error output produced
+by the command, if any.
           BODY
           end
         end
