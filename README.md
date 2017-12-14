@@ -112,19 +112,15 @@ curl -d 'args=Hello world' localhost:9292
 
 An email will be sent with instructions to follow. Finally, after command
 execution an email with subject **SUCCESS...** will be sent with a body similar
-to:
+to the following example. Any output produced by the command (via `stderr`
+and/or `stdout`) will be attached to the email.
 
 ```
-Command runs in 0.006102632003603503 seconds
-
+Command finished in 0.06 seconds
 -------------------------------------------------------------------------------
 
-Errors
-======
+Please refer to the attached file(s) for the standard and error output produced
+by the command, if any.
 
-
-
-Output
-======
-Hello world
+[attachment stdout.txt contains "Hello world"]
 ```
